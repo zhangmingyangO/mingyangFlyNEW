@@ -24,12 +24,12 @@ public interface TopicMapper {
     List<Map<String,Object>> getAllTopics();
 
     Map<String,Object> getTopicInfo(int topicID);
-    int getTopicTotal();
+    int getTopicTotal(PageInfo pageInfo);
 
     List<Map<String,Object>> getPagedTopics(PageInfo pageInfo);
     List<Map<String,Object>> getTopTopics();
-    int getTopicByCategoryID(int cid);
-    List<Map<String,Object>> getPagedTopicsByCategoryID(PageInfo pageInfo);
-
+//    int getTopicByCategoryID(int cid);
+//    List<Map<String,Object>> getPagedTopicsByCategoryID(PageInfo pageInfo);
+//
 
 }
