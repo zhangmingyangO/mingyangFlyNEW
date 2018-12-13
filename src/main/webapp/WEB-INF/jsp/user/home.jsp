@@ -82,31 +82,23 @@
 
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">贤心 最近的回答</h3>
+                <h3 class="fly-panel-title">${user.nickname} 最近的回答</h3>
                 <ul class="home-jieda">
+                    <c:forEach items="${userList2}" var="userlist2">
                     <li>
                         <p>
-                            <span>1分钟前</span>
-                            在<a href="" target="_blank">tips能同时渲染多个吗?</a>中回答：
+                            <span>${userlist2.comment_time}</span>
+                            在<a href="${pageContext.request.contextPath}/jie/detail/ ${userlist2.id}" target="_blank">${userlist2.title}</a>中回答：
                         </p>
                         <div class="home-dacontent">
-                            尝试给layer.photos加上这个属性试试：
+                                ${userlist2.comment_content}
                             <pre>
 full: true
 </pre>
                             文档没有提及
                         </div>
                     </li>
-                    <li>
-                        <p>
-                            <span>5分钟前</span>
-                            在<a href="" target="_blank">在Fly社区用的是什么系统啊?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            Fly社区采用的是NodeJS。分享出来的只是前端模版
-                        </div>
-                    </li>
-
+                    </c:forEach>
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div> -->
                 </ul>
             </div>

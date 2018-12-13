@@ -22,38 +22,7 @@
 <body>
 
 <%@include file="../common/header.jsp"%>
-
-<div class="layui-hide-xs">
-    <div class="fly-panel fly-column">
-        <div class="layui-container">
-            <ul class="layui-clear">
-                <li class="layui-hide-xs"><a href="/">首页</a></li>
-                <li class="layui-this"><a href="">提问</a></li>
-                <li><a href="">分享<span class="layui-badge-dot"></span></a></li>
-                <li><a href="">讨论</a></li>
-                <li><a href="">建议</a></li>
-                <li><a href="">公告</a></li>
-                <li><a href="">动态</a></li>
-                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
-
-                <c:choose>
-                    <c:when test="${empty userinfo}">
-                        <!-- 用户登入后显示 -->
-                        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="../user/index.html">我发表的贴</a></li>
-                        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="../user/index.html#collection">我收藏的贴</a></li>
-                    </c:when >
-                </c:choose>
-            </ul>
-            <div class="fly-column-right layui-hide-xs">
-                <span class="fly-search"><i class="layui-icon"></i></span>
-                <a href="${pageContext.request.contextPath}/jie/add" class="layui-btn">发表新帖</a>
-            </div>
-            <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-                <a href="${pageContext.request.contextPath}/jie/add" class="layui-btn">发表新帖</a>
-            </div>
-        </div>
-    </div>
-</div>
+<%@include file="../common/column.jsp"%>
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
@@ -95,7 +64,7 @@
                     </c:if>
 
                     <span class="fly-list-nums">
-            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>
+            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> ${topic.comment_num}</a>
             <i class="iconfont" title="人气">&#xe60b;</i> 99999
           </span>
                 </div>

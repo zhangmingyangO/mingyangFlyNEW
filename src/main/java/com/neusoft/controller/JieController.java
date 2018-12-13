@@ -60,7 +60,7 @@ public class JieController {
         return modelAndView;
     }
     @RequestMapping("detail/{tid}")
-    public ModelAndView detail(@PathVariable Integer tid)
+    public ModelAndView detail(@PathVariable Integer tid )
     {
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> map = topicMapper.getTopicInfo(tid);
@@ -68,7 +68,6 @@ public class JieController {
         Date date = (Date)map.get("create_time");
         String strDate = StringDate.getStringDate(date);
         map.put("create_time",strDate);
-
 
         List<Map<String,Object>> mapList = commentMapper.getCommentsByTopicID(tid);
         for(Map<String,Object> map2 : mapList)

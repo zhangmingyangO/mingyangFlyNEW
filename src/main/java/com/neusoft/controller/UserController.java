@@ -1,9 +1,11 @@
 package com.neusoft.controller;
 
+import com.neusoft.mapper.TopicMapper;
 import com.neusoft.util.MD5Utils;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.UserMapper;
 import com.neusoft.response.RegRespObj;
+import com.neusoft.util.StringDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,8 @@ public class UserController {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    TopicMapper topicMapper;
     @RequestMapping("index/{uid}")
     @ResponseBody
     public ModelAndView index( @PathVariable Integer uid){
@@ -160,7 +164,16 @@ public class UserController {
     {
         ModelAndView modelAndView = new ModelAndView();
         User user = userMapper.selectByPrimaryKey(uid);
+        List<Map<String,Object>> mapList2 = topicMapper.getTopTopicsUseridhuitime(uid);
+        System.out.println(mapList2.size());
+        for(Map<String,Object> map2 : mapList2)
+        {
+            Date date2 = (Date)map2.get("comment_time");
+            String strDate2 = StringDate.getStringDate(date2);
+            map2.put("comment_time",strDate2);
+        }
         List<Map<String,Object>> mapList = userMapper.selectByTopicUserId(uid);
+        modelAndView.addObject("userList2",mapList2);
         modelAndView.addObject("userList",mapList);
         modelAndView.addObject("user",user);
         modelAndView.setViewName("user/home");

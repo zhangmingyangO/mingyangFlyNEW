@@ -25,7 +25,7 @@
 <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
         <li class="layui-nav-item">
-            <a href="home.html">
+            <a href="${pageContext.request.contextPath}/user/home/${topic.userid}">
                 <i class="layui-icon">&#xe609;</i>
                 我的主页
             </a>
@@ -37,7 +37,7 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="set.html">
+            <a href="${pageContext.request.contextPath}/user/set">
                 <i class="layui-icon">&#xe620;</i>
                 基本设置
             </a>

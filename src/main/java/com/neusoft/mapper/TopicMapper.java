@@ -28,6 +28,7 @@ public interface TopicMapper {
 
     List<Map<String,Object>> getPagedTopics(PageInfo pageInfo);
     List<Map<String,Object>> getTopTopics();
+    List<Map<String,Object>> getTopTopicsUseridhuitime( int uuid);
 //    int getTopicByCategoryID(int cid);
 //    List<Map<String,Object>> getPagedTopicsByCategoryID(PageInfo pageInfo);
 //
