@@ -8,6 +8,15 @@ public class RegRespObj {
     private String msg;
     private int code;
     private String action;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getAction() {
         return action;
@@ -40,4 +49,6 @@ public class RegRespObj {
     public void setCode(int code) {
         this.code = code;
     }
+
+
 }
