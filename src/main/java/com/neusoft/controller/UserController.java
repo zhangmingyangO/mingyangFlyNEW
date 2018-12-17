@@ -35,6 +35,13 @@ public class UserController {
     UserMapper userMapper;
     @Autowired
     TopicMapper topicMapper;
+//    @RequestMapping("add/{tid}")
+//    @ResponseBody
+//    public ModelAndView add (){
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        return modelAndView;
+//    }
     @RequestMapping("index/{uid}")
     @ResponseBody
     public ModelAndView index( @PathVariable Integer uid){

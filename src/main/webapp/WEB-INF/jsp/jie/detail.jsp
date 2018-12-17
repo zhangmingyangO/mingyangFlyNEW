@@ -73,11 +73,11 @@
 
                     <span class="fly-list-nums">
             <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> ${topic.comment_num}</a>
-            <i class="iconfont" title="人气">&#xe60b;</i> 99999
+            <i class="iconfont" title="人气">&#xe60b;</i> ${topic.view_times}
           </span>
                 </div>
                 <div class="detail-about">
-                    <a class="fly-avatar" href="../user/home.html">
+                    <a class="fly-avatar" href="${pageContext.request.contextPath}/user/home/${topic.userid}">
                         <c:choose>
                             <c:when test="${topic.pic_path != ''}">
                                 <img src="${pageContext.request.contextPath}/res/uploadImgs/${topic.pic_path}" alt="${topic.nickname}">
@@ -88,7 +88,7 @@
                         </c:choose>
                     </a>
                     <div class="fly-detail-user">
-                        <a href="../user/home.html" class="fly-link">
+                        <a href="${pageContext.request.contextPath}/user/home/${topic.userid}" class="fly-link">
                             <cite>${topic.nickname}</cite>
                             <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
                             <i class="layui-badge fly-badge-vip">VIP3</i>
@@ -98,11 +98,10 @@
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${topic.kiss_num}飞吻</span>
                         <c:if test="${!empty userinfo}">
-                            <c:if test="${userinfo.id == topic.userid}">
-                                <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                            <c:if test="${userinfo.id == topic.userid and topic.is_end == 0}">
+                                <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="${pageContext.request.contextPath}/jie/add/${topic.topic_id}">编辑此贴</a></span>
                             </c:if>
                         </c:if>
-
                     </div>
                 </div>
                 <div class="detail-body photos">
@@ -121,7 +120,7 @@
                         <li data-id="${comment.id}" class="jieda-daan">
                             <a name="item-1111111111"></a>
                             <div class="detail-about detail-about-reply">
-                                <a class="fly-avatar" href="#">
+                                <a class="fly-avatar" href="${pageContext.request.contextPath}/user/home/${comment.userid}">
                                     <c:choose>
                                         <c:when test="${comment.pic_path != ''}">
                                             <img src="${pageContext.request.contextPath}/res/uploadImgs/${comment.pic_path}" alt="${comment.nickname}">
@@ -132,7 +131,7 @@
                                     </c:choose>
                                 </a>
                                 <div class="fly-detail-user">
-                                    <a href="#" class="fly-link">
+                                    <a href="${pageContext.request.contextPath}/user/home/${comment.userid}" class="fly-link">
                                         <cite>${comment.nickname}</cite>
                                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                         <i class="layui-badge fly-badge-vip">VIP${comment.vip_grade}</i>
@@ -206,7 +205,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <input type="hidden" name="topicId" value="${topic.topic_id}">
+                            <input type="hidden" name="topicIdtopicId" value="${topic.topic_id}">
                             <button class="layui-btn" lay-filter="*" lay-submit>提交回复</button>
                         </div>
                     </form>

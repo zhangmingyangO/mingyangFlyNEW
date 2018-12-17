@@ -140,7 +140,7 @@
             <a href="${pageContext.request.contextPath}/jie/detail/{{topic.id}}">{{topic.title}}</a>
         </h2>
         <div class="fly-list-info">
-            <a href="user/home.html" link>
+            <a href="${pageContext.request.contextPath}/user/home/${topic.userid}" link>
                 <cite>{{topic.nickname}}</cite>
                 <!--
                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
@@ -151,7 +151,7 @@
             <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> {{topic.kiss_num}}</span>
             <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
             <span class="fly-list-nums">
-                <i class="iconfont icon-pinglun1" title="回答"></i> {{topic.comment_num}}
+                <i class="iconfont icon-pinglun1" title="回答"></i>${topic.comment_num}
               </span>
         </div>
         <div class="fly-list-badge">

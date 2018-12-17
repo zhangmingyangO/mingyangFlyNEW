@@ -40,7 +40,7 @@
             <!--<mvc:mapping path="/jie/**"/>-->
             <!--<mvc:exclude-mapping path="/jie/detail/**"></mvc:exclude-mapping>-->
             <!--<mvc:exclude-mapping path="/jie/reply/"></mvc:exclude-mapping>-->
-            <mvc:mapping path="/jie/add"/>
+            <mvc:mapping path="/jie/add/**"/>
             <bean class="com.neusoft.interceptor.LoginInterceptor"></bean>
 
         </mvc:interceptor>
