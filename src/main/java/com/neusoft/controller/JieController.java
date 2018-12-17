@@ -121,8 +121,7 @@ public class JieController {
             topic.setCommentNum(comment_num + 1);
             topicMapper.updateByPrimaryKeySelective(topic);
 
-        }
-        else
+        } else
         {
             String referer = request.getHeader("Referer");
             httpSession.setAttribute("referer",referer);
