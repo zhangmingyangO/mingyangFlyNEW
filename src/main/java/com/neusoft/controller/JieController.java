@@ -39,7 +39,6 @@ public class JieController {
 
     @Autowired
     TopicMapper topicMapper;
-
     @Autowired
     CommentMapper commentMapper;
     @Autowired
@@ -169,6 +168,5 @@ public class JieController {
             regRespObj.setAction(request.getServletContext().getContextPath()+"/user/login");
         }
         response.getWriter().println(JSON.toJSONString(regRespObj));
-        return;
     }
 }
