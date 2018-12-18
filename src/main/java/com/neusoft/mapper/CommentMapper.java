@@ -19,4 +19,5 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     List<Map<String,Object>> getCommentsByTopicID(Map<String,Object> params);
+    List<Map<String,Object>> getCommentsByTopicCountID();
 }

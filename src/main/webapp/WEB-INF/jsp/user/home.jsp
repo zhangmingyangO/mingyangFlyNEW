@@ -61,17 +61,14 @@
             <div class="fly-panel">
                 <h3 class="fly-panel-title">${user.nickname} 最近的提问</h3>
                 <ul class="jie-row">
-                    <li>
-                        <span class="fly-jing">精</span>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>刚刚</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
                     <c:forEach items="${userList}" var="userlist">
                     <li>
+                        <c:if test="${userlist.is_good ==1}">
+                        <span class="fly-jing">精</span>
+                        </c:if>
                         <a href="${pageContext.request.contextPath}/jie/detail/${userlist.topicid}" class="jie-title"> ${userlist.title}</a>
                         <i>${userlist.create_time}</i>
-                        <em class="layui-hide-xs">1136阅/${userlist.comment_num}答</em>
+                        <em class="layui-hide-xs">${userlist.view_times}阅/${userlist.comment_num}答</em>
                         <input type="hidden" name="userlist.topicid" value="${userlist.topicid}" >
                     </li>
                     </c:forEach>

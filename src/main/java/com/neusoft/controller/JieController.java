@@ -46,10 +46,12 @@ public class JieController {
     @RequestMapping("index/{cid}/{typeid}")
     public ModelAndView index(@PathVariable Integer cid,@PathVariable Integer typeid)
     {
+        List<Map<String,Object>> mapList = topicMapper.getTopicsCommentHot();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("jie/index");
         modelAndView.addObject("cid",cid);
         modelAndView.addObject("typeid",typeid);
+        modelAndView.addObject("hot_Comment",mapList);
         return modelAndView;
     }
 
@@ -95,6 +97,7 @@ public class JieController {
             params.put("userid",user.getId());
         }
         List<Map<String,Object>> mapList = commentMapper.getCommentsByTopicID(params);
+        List<Map<String,Object>> mapList1 = topicMapper.getTopicsCommentHot();
         for(Map<String,Object> map2 : mapList)
         {
             Date date2 = (Date)map2.get("comment_time");
@@ -103,6 +106,7 @@ public class JieController {
         }
 
         modelAndView.setViewName("jie/detail");
+        modelAndView.addObject("HotComment",mapList1);
         modelAndView.addObject("topic",map);
         modelAndView.addObject("comments",mapList);
         return modelAndView;

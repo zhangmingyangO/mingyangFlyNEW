@@ -265,7 +265,7 @@ limit #{pageStart},#{pageSize}
     join tab_user on tab_topic.userid = tab_user.id
     join tab_topic_category on tab_topic.topic_category_id = tab_topic_category.id
     where tab_topic.is_top = 1
-ORDER BY tab_topic.create_time DESC
+    ORDER BY tab_topic.create_time DESC
   </select>
   <select id="getTopicByCategoryID" parameterType="int" resultType="int">
     select count(*) from tab_topic where tab_topic.topic_category_id = #{value}
@@ -275,5 +275,10 @@ ORDER BY tab_topic.create_time DESC
  WHERE tab_user.id = #{value}
  ORDER BY comment_time DESC
 LIMIT 0,3
+  </select>
+  <select id="getTopicsCommentHot" resultType="map">
+SELECT tab_topic.comment_num,tab_topic.id,tab_topic.title FROM tab_topic
+ ORDER BY tab_topic.comment_num DESC
+ LIMIT 0,10
   </select>
 </mapper>

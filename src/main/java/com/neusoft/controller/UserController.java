@@ -44,8 +44,12 @@ public class UserController {
 //    }
     @RequestMapping("index/{uid}")
     @ResponseBody
-    public ModelAndView index( @PathVariable Integer uid){
-        System.out.println("sdfafasdf");
+    public ModelAndView index( @PathVariable Integer uid,HttpServletRequest request){
+        RegRespObj regRespObj = new RegRespObj();
+            if (uid > 0){
+                regRespObj.setStatus(0);
+                regRespObj.setAction(request.getServletContext().getContextPath() + "/user/login");
+            }
         ModelAndView modelAndView = new ModelAndView();
         int count = userMapper.selectByTopicUserIdcount(uid);
         List<Map<String,Object>> mapList1 = userMapper.selectByTopicUserId(uid);

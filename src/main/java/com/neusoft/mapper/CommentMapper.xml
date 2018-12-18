@@ -125,4 +125,10 @@ left join (select commentid from tab_user_comment_agree where userid = #{userid}
 where tab_comment.topic_id = #{topicid}
 order by tab_comment.is_choose desc, tab_comment.like_num desc, tab_comment.comment_time asc
   </select>
+  <select id="getCommentsByTopicCountID" resultType="map">
+    SELECT tab_user.id, tab_user.nickname,tab_user.pic_path,COUNT(tab_comment.user_id) AS countid FROM
+ tab_user JOIN tab_comment ON tab_user.id = tab_comment.user_id
+ GROUP BY tab_comment.user_id
+ ORDER BY countid DESC
+  </select>
 </mapper>

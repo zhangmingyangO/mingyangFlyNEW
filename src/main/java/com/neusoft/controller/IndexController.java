@@ -1,5 +1,6 @@
 package com.neusoft.controller;
 
+import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
 import com.neusoft.util.StringDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,16 @@ public class IndexController {
 
     @Autowired
     TopicMapper topicMapper;
+    @Autowired
+    CommentMapper commentMapper;
 
     @RequestMapping("/")
     public ModelAndView index()
     {
+
         List<Map<String,Object>> mapList = topicMapper.getTopTopics();
+        List<Map<String,Object>> mapList1 = commentMapper.getCommentsByTopicCountID();
+        List<Map<String,Object>> mapList2 = topicMapper.getTopicsCommentHot();
         for(Map<String,Object> map : mapList)
         {
             Date date = (Date)map.get("create_time");
@@ -33,6 +39,8 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("top_topics",mapList);
+        modelAndView.addObject("top_comment",mapList1);
+        modelAndView.addObject("hot_Comment",mapList2);
         modelAndView.addObject("typeid",0);
         return modelAndView;
 //        List<Map<String,Object>> mapList = topicMapper.getAllTopics();

@@ -204,10 +204,10 @@
       select * from tab_user limit #{pageStart},#{pageSize}
   </select>
   <select id="selectByTopicUserId" parameterType="int" resultType="map">
-SELECT  tab_topic.create_time,tab_topic.id AS topicid,tab_topic.title,tab_user.id AS useridd ,tab_topic.comment_num,tab_topic.view_times
+SELECT tab_topic.view_times, tab_topic.is_good, tab_topic.create_time,tab_topic.id AS topicid,tab_topic.title,tab_user.id AS useridd ,tab_topic.comment_num,tab_topic.view_times
 FROM tab_user JOIN tab_topic ON tab_user.id = tab_topic.userid
 WHERE tab_user.id=#{value}
-ORDER BY tab_topic.create_time DESC
+ORDER BY tab_topic.is_good DESC, tab_topic.create_time DESC
   </select>
   <select id="selectByTopicUserIdcount" resultType="int" parameterType="int">
  SELECT COUNT(tab_topic.id) AS counttopicid
