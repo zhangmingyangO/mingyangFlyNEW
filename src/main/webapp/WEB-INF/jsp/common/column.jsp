@@ -26,7 +26,14 @@
             <li><a href="${pageContext.request.contextPath}/jie/index/6/0">动态</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
             <!-- 用户登入后显示 -->
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/${userinfo.id}">我发表的贴</a></li>
+            <c:choose>
+                <c:when test="${userinfo.id==''}">
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/-1">我发表的贴</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/${userinfo.id}">我发表的贴</a></li>
+                </c:otherwise>
+            </c:choose>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/#collection">我收藏的贴</a></li>
         </ul>
         <div class="fly-column-right layui-hide-xs">

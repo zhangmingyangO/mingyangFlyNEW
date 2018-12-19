@@ -1,17 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2018/12/12
-  Time: 20:13
+  Date: 2018/12/19
+  Time: 16:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>用户中心</title>
+    <title>我的消息</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="fly,layui,前端社区">
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
@@ -43,7 +43,7 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="message.html">
+            <a href="${pageContext.request.contextPath}/user/message">
                 <i class="layui-icon">&#xe611;</i>
                 我的消息
             </a>
@@ -62,44 +62,30 @@
 
 
     <div class="fly-panel fly-panel-user" pad20>
-        <!--
-        <div class="fly-msg" style="margin-top: 15px;">
-          您的邮箱尚未验证，这比较影响您的帐号安全，<a href="activate.html">立即去激活？</a>
-        </div>
-        -->
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
-            <ul class="layui-tab-title" id="LAY_mine">
-<%--<c:forEach items="${userTopicCount}" var="usertopicCount">--%>
-                <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>${userTopicCount}</span>）</li>
-<%--</c:forEach>--%>
-                <li data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖（<span>16</span>）</li>
-            </ul>
-            <div class="layui-tab-content" style="padding: 20px 0;">
-                <div class="layui-tab-item layui-show">
-                    <ul class="mine-view jie-row">
-                        <c:forEach items="${userTopic}" var="usertopic">
-                        <li>
-                            <a class="jie-title" href="${pageContext.request.contextPath}/jie/detail/${usertopic.topicid}" target="_blank">${usertopic.title}</a>
-                            <i>${usertopic.create_time}</i>
-                            <a class="mine-edit" href="${pageContext.request.contextPath}/jie/add/${usertopic.topicid}">编辑</a>
-                            <em>${usertopic.view_times}阅/${usertopic.comment_num}答</em>
-                        </li>
-                        </c:forEach>
-                    </ul>
-                    <div id="LAY_page"></div>
-                </div>
-                <div class="layui-tab-item">
-                    <ul class="mine-view jie-row">
-                        <li>
-                            <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
-                            <i>收藏于23小时前</i>  </li>
-                    </ul>
-                    <div id="LAY_page1"></div>
-                </div>
+        <div class="layui-tab layui-tab-brief" lay-filter="user" id="LAY_msg" style="margin-top: 15px;">
+            <button class="layui-btn layui-btn-danger" id="LAY_delallmsg">清空全部消息</button>
+            <div  id="LAY_minemsg" style="margin-top: 10px;">
+                <!--<div class="fly-none">您暂时没有最新消息</div>-->
+                <ul class="mine-msg">
+                    <li data-id="123">
+                        <blockquote class="layui-elem-quote">
+                            <a href="/jump?username=Absolutely" target="_blank"><cite>Absolutely</cite></a>回答了您的求解<a target="_blank" href="/jie/8153.html/page/0/#item-1489505778669"><cite>layui后台框架</cite></a>
+                        </blockquote>
+                        <p><span>1小时前</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+                    </li>
+                    <li data-id="123">
+                        <blockquote class="layui-elem-quote">
+                            系统消息：欢迎使用 layui
+                        </blockquote>
+                        <p><span>1小时前</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+
 </div>
+
 
 <div class="fly-footer">
     <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>

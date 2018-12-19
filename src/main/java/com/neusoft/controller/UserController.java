@@ -42,11 +42,18 @@ public class UserController {
 //
 //        return modelAndView;
 //    }
+    @RequestMapping("message")
+    public String message(){
+
+        return "user/message";
+    }
     @RequestMapping("index/{uid}")
     @ResponseBody
     public ModelAndView index( @PathVariable Integer uid,HttpServletRequest request){
         RegRespObj regRespObj = new RegRespObj();
-            if (uid > 0){
+        HttpSession session = request.getSession();
+        String referer = (String) session.getAttribute("referer");
+            if (uid < 0){
                 regRespObj.setStatus(0);
                 regRespObj.setAction(request.getServletContext().getContextPath() + "/user/login");
             }
@@ -54,6 +61,7 @@ public class UserController {
         int count = userMapper.selectByTopicUserIdcount(uid);
         List<Map<String,Object>> mapList1 = userMapper.selectByTopicUserId(uid);
         System.out.println(count);
+        modelAndView.addObject("uid",uid);
         modelAndView.addObject("userTopicCount",count);
         modelAndView.addObject("userTopic",mapList1);
         modelAndView.setViewName("user/index");
@@ -155,15 +163,21 @@ public class UserController {
         request.getSession().invalidate();
         return "redirect:" + request.getServletContext().getContextPath() +"/";
     }
+
     @RequestMapping("login")
-    public String login()
+    public String login(HttpServletRequest request)
     {
-        return "user/login";
+        String referer = request.getHeader("Referer");
+        HttpSession session = request.getSession();
+        session.setAttribute("referer",referer);
+            return "user/login";
+
     }
 
     @RequestMapping("jumphome/{username}")
-    public ModelAndView jumphome(@PathVariable String username)
+    public ModelAndView jumphome(@PathVariable String username,HttpServletRequest request)
     {
+
         ModelAndView modelAndView = new ModelAndView();
         User user = userMapper.selectByNickname(username);
         modelAndView.addObject("user",user);
@@ -197,6 +211,7 @@ public class UserController {
         HttpSession httpSession = request.getSession();
         String referer = (String)httpSession.getAttribute("referer");
         httpSession.removeAttribute("referer");
+        System.out.println("referer++++++++++++"+""+referer);
         //查询数据库，用email和密码作为条件查询，如果查出来0条记录，登录失败
         //否则，登录成功
         user.setPasswd(MD5Utils.getPwd(user.getPasswd()));

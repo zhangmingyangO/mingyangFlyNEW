@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,6 @@ public class IndexController {
     @RequestMapping("/")
     public ModelAndView index()
     {
-
         List<Map<String,Object>> mapList = topicMapper.getTopTopics();
         List<Map<String,Object>> mapList1 = commentMapper.getCommentsByTopicCountID();
         List<Map<String,Object>> mapList2 = topicMapper.getTopicsCommentHot();

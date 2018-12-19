@@ -71,7 +71,7 @@ public class JieController {
         return modelAndView;
     }
     @RequestMapping("detail/{tid}")
-    public ModelAndView detail(@PathVariable Integer tid ,HttpSession httpSession )
+    public ModelAndView detail(@PathVariable Integer tid ,HttpSession httpSession,HttpServletRequest request )
     {
         Topic topic = topicMapper.selectByPrimaryKey(tid);
         topic.setViewTimes(topic.getViewTimes() + 1);
