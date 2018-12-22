@@ -1,6 +1,8 @@
 package com.neusoft.controller;
 
+import com.neusoft.domain.UserMessage;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserMessageMapper;
 import com.neusoft.util.MD5Utils;
 import com.neusoft.domain.User;
 import com.neusoft.mapper.UserMapper;
@@ -35,17 +37,31 @@ public class UserController {
     UserMapper userMapper;
     @Autowired
     TopicMapper topicMapper;
-//    @RequestMapping("add/{tid}")
-//    @ResponseBody
-//    public ModelAndView add (){
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//        return modelAndView;
-//    }
-    @RequestMapping("message")
-    public String message(){
+    @Autowired
+    UserMessageMapper userMessageMapper;
 
-        return "user/message";
+    @RequestMapping("index")
+    public String index()
+    {
+        return "user/index";
+    }
+    @RequestMapping("message")
+    public ModelAndView message(HttpSession httpSession)
+    {
+
+        ModelAndView modelAndView = new ModelAndView();
+        User userLogin = (User)httpSession.getAttribute("userinfo");
+        List<Map<String,Object>> mapList = userMessageMapper.getMessagesByUserID(userLogin.getId());
+        for(Map<String,Object> map : mapList)
+        {
+            Date date = (Date)map.get("create_time");
+            String strDate = StringDate.getStringDate(date);
+            map.put("create_time",strDate);
+        }
+
+        modelAndView.addObject("messages",mapList);
+        modelAndView.setViewName("user/message");
+        return modelAndView;
     }
     @RequestMapping("index/{uid}")
     @ResponseBody
@@ -131,6 +147,15 @@ public class UserController {
             user.setPasswd(pwd);
             int i = userMapper.insertSelective(user);
             if(i>0){
+                User userReg = userMapper.selectByNickname(user.getNickname());
+                //插入一条系统欢迎消息
+                UserMessage userMessage = new UserMessage();
+                userMessage.setCreateTime(new Date());
+                userMessage.setTopicId(-1);
+                userMessage.setMsgType(0);
+                userMessage.setTriggerMsgUserId(0);
+                userMessage.setRecvMsgUserId(userReg.getId());
+                userMessageMapper.insertSelective(userMessage);
                 regRespObj.setStatus(0);
                 System.out.println(request.getServletContext().getContextPath());
                 regRespObj.setAction(request.getServletContext().getContextPath() + "/");

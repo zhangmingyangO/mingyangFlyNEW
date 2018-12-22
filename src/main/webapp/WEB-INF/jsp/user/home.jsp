@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +29,14 @@
     <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
     <h1>
         ${user.nickname}
-        <i class="iconfont icon-nan"></i>
-        <!-- <i class="iconfont icon-nv"></i>  -->
+        <c:choose>
+            <c:when test="${user.sex==0}">
+                <i class="iconfont icon-nan"></i>
+            </c:when>
+            <c:otherwise>
+                <i class="iconfont icon-nv"></i>
+            </c:otherwise>
+        </c:choose>
         <i class="layui-badge fly-badge-vip">VIP${user.vipGrade}</i>
         <!--
         <span style="color:#c00;">（管理员）</span>
@@ -42,16 +49,16 @@
 
     <p class="fly-home-info">
         <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${user.kissNum} 飞吻</span>
-        <i class="iconfont icon-shijian"></i><span>${user.joinTime} 加入</span>
+        <i class="iconfont icon-shijian"></i><span><fmt:formatDate value="${user.joinTime}" pattern="yyyy-MM-dd"/> 加入</span>
         <i class="iconfont icon-chengshi"></i><span>来自${user.city}</span>
     </p>
 
     <p class="fly-home-sign">${user.sign}</p>
 
-    <div class="fly-sns" data-user="">
-        <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
-        <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
-    </div>
+    <%--<div class="fly-sns" data-user="">--%>
+        <%--<a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>--%>
+        <%--<a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>--%>
+    <%--</div>--%>
 
 </div>
 
@@ -72,7 +79,9 @@
                         <input type="hidden" name="userlist.topicid" value="${userlist.topicid}" >
                     </li>
                     </c:forEach>
-                    <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
+                    <c:if test="${empty userList}">
+                     <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
+                    </c:if>
                 </ul>
             </div>
         </div>
@@ -88,15 +97,15 @@
                             在<a href="${pageContext.request.contextPath}/jie/detail/ ${userlist2.id}" target="_blank">${userlist2.title}</a>中回答：
                         </p>
                         <div class="home-dacontent">
-                                ${userlist2.comment_content}
-                            <pre>
-full: true
-</pre>
-                            文档没有提及
+                            <%--<pre>--%>
+                                    ${userlist2.comment_content}
+                            <%--</pre>--%>
                         </div>
                     </li>
                     </c:forEach>
-                    <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div> -->
+                    <c:if test="${empty userList2 }">
+                     <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div>
+                    </c:if>
                 </ul>
             </div>
         </div>
@@ -115,19 +124,22 @@ full: true
 <script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
 <script>
     layui.cache.page = 'user';
-    layui.cache.user = {
-        username: '游客'
-        ,uid: -1
-        ,avatar: '${pageContext.request.contextPath}/res/images/avatar/00.jpg'
-        ,experience: 83
-        ,sex: '男'
-    };
+    <%@include file="../common/cache_user.jsp"%>
     layui.config({
         version: "3.0.0"
         ,base: '${pageContext.request.contextPath}/res/mods/'
     }).extend({
         fly: 'index'
-    }).use('fly');
+    }).use(['fly', 'face'],function () {
+        var $ = layui.$
+            ,fly = layui.fly;
+        $('.home-dacontent').each(function(){
+            var othis = $(this);
+            var html = othis.html();
+            var content = fly.content(html);
+            othis.html(content);
+        });
+    });
 </script>
 
 </body>

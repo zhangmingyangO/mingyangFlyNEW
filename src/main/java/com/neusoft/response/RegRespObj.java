@@ -9,6 +9,24 @@ public class RegRespObj {
     private int code;
     private String action;
     private String url;
+    private int count;
+    private Data data;
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getUrl() {
         return url;

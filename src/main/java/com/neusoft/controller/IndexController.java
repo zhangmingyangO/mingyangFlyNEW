@@ -2,6 +2,7 @@ package com.neusoft.controller;
 
 import com.neusoft.mapper.CommentMapper;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserMapper;
 import com.neusoft.util.StringDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class IndexController {
     TopicMapper topicMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @RequestMapping("/")
     public ModelAndView index()

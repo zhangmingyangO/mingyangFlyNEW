@@ -5,13 +5,24 @@ import java.util.Date;
 public class UserMessage {
     private Integer id;
 
-    private Integer userId;
+    private Integer triggerMsgUserId;
+
+    private Integer recvMsgUserId;
 
     private Integer topicId;
 
-    private String content;
+    private Integer msgType;
 
     private Date createTime;
+    private Integer isRead;
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
+    }
 
     public Integer getId() {
         return id;
@@ -21,12 +32,20 @@ public class UserMessage {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getTriggerMsgUserId() {
+        return triggerMsgUserId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setTriggerMsgUserId(Integer triggerMsgUserId) {
+        this.triggerMsgUserId = triggerMsgUserId;
+    }
+
+    public Integer getRecvMsgUserId() {
+        return recvMsgUserId;
+    }
+
+    public void setRecvMsgUserId(Integer recvMsgUserId) {
+        this.recvMsgUserId = recvMsgUserId;
     }
 
     public Integer getTopicId() {
@@ -37,12 +56,12 @@ public class UserMessage {
         this.topicId = topicId;
     }
 
-    public String getContent() {
-        return content;
+    public Integer getMsgType() {
+        return msgType;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setMsgType(Integer msgType) {
+        this.msgType = msgType;
     }
 
     public Date getCreateTime() {

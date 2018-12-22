@@ -49,8 +49,8 @@
                     <c:if test="${topic.is_good == 1}">
                         <span class="layui-badge layui-bg-red">精帖</span>
                     </c:if>
-                    <c:if test="${userinfo.isadmin == 1}">
-                        <div class="fly-admin-box" data-id="${topic.topic_id}">
+                    <div class="fly-admin-box" data-id="${topic.topic_id}">
+                        <c:if test="${userinfo.isadmin == 1}">
                             <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
                             <c:choose>
                                 <c:when test="${topic.is_top == 0}">
@@ -95,7 +95,7 @@
                         </a>
                         <span>${topic.create_time}</span>
                     </div>
-                    <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
+                    <div class="detail-hits" id="LAY_jieAdmin" data-id="${topic.topic_id}">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${topic.kiss_num}飞吻</span>
                         <c:if test="${!empty userinfo}">
                             <c:if test="${userinfo.id == topic.userid and topic.is_end == 0}">
@@ -205,7 +205,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <input type="hidden" name="topicIdtopicId" value="${topic.topic_id}">
+                            <input type="hidden" name="topicId" value="${topic.topic_id}">
                             <button class="layui-btn" lay-filter="*" lay-submit>提交回复</button>
                         </div>
                     </form>
@@ -257,27 +257,7 @@
 <script src="../../res/layui/layui.js"></script>
 <script>
     layui.cache.page = 'jie';
-    <c:choose>
-    <c:when test="${!empty userinfo}">
-    layui.cache.user = {
-        username: '${userinfo.nickname}'
-        ,uid: ${userinfo.id}
-        ,avatar: '${pageContext.request.contextPath}/res/uploadImgs/${userinfo.picPath}'
-        ,experience: 83
-        ,sex: '男'
-    };
-    </c:when>
-     <c:otherwise>
-    layui.cache.user = {
-        username: '游客'
-        ,uid: -1
-        ,avatar: '../../res/images/avatar/00.jpg'
-        ,experience: 83
-        ,sex: '男'
-    };
-    </c:otherwise>
-    </c:choose>
-
+    <%@include file="../common/cache_user.jsp"%>
     layui.config({
         version: "3.0.0"
         ,base: '../../res/mods/'
@@ -290,7 +270,8 @@
 
          $('.detail-body').each(function(){
          var othis = $(this), html = othis.html();
-         othis.html(fly.content(html));
+             var content = fly.content(html);
+             othis.html(content);
          });
 
     });

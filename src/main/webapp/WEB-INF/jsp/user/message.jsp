@@ -67,12 +67,14 @@
             <div  id="LAY_minemsg" style="margin-top: 10px;">
                 <!--<div class="fly-none">您暂时没有最新消息</div>-->
                 <ul class="mine-msg">
-                    <li data-id="123">
-                        <blockquote class="layui-elem-quote">
-                            <a href="/jump?username=Absolutely" target="_blank"><cite>Absolutely</cite></a>回答了您的求解<a target="_blank" href="/jie/8153.html/page/0/#item-1489505778669"><cite>layui后台框架</cite></a>
-                        </blockquote>
-                        <p><span>1小时前</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
-                    </li>
+                    <c:forEach items="${messages}" var="message">
+                        <li data-id="${message.msg_id}">
+                            <blockquote class="layui-elem-quote">
+                                <a href="${pageContext.request.contextPath}/user/home/${message.userid}" target="_blank"><cite>${message.nickname}</cite></a>${message.msg_content1}<a target="_blank" href="${pageContext.request.contextPath}/jie/detail/${message.topic_id}"><cite>${message.title}</cite>${message.msg_content2}</a>
+                            </blockquote>
+                            <p><span>${message.create_time}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+                        </li>
+                    </c:forEach>
                     <li data-id="123">
                         <blockquote class="layui-elem-quote">
                             系统消息：欢迎使用 layui
@@ -99,13 +101,7 @@
 <script src="../../res/layui/layui.js"></script>
 <script>
     layui.cache.page = 'user';
-    layui.cache.user = {
-        username: '游客'
-        ,uid: -1
-        ,avatar: '../../res/images/avatar/00.jpg'
-        ,experience: 83
-        ,sex: '男'
-    };
+    <%@include file="../common/cache_user.jsp"%>
     layui.config({
         version: "3.0.0"
         ,base: '../../res/mods/'
