@@ -16,7 +16,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="fly-panel fly-column">
     <div class="layui-container">
-        <ul class="layui-clear">
+        <ul class="layui-clear neu-category">
             <li class="layui-hide-xs layui-this"><a href="${pageContext.request.contextPath}/">首页</a></li>
             <li><a href="${pageContext.request.contextPath}/jie/index/1/0">提问</a></li>
             <li><a href="${pageContext.request.contextPath}/jie/index/2/0">分享<span class="layui-badge-dot"></span></a></li>
@@ -28,7 +28,7 @@
             <!-- 用户登入后显示 -->
             <c:if test="${!empty userinfo}">
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/${userinfo.id}">我发表的贴</a></li>
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/#collection">我收藏的贴</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/user/index/${userinfo.id}">我收藏的贴</a></li>
             </c:if>
         </ul>
         <div class="fly-column-right layui-hide-xs">

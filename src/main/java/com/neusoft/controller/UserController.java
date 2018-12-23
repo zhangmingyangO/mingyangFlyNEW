@@ -2,6 +2,7 @@ package com.neusoft.controller;
 
 import com.neusoft.domain.UserMessage;
 import com.neusoft.mapper.TopicMapper;
+import com.neusoft.mapper.UserCollectTopicMapper;
 import com.neusoft.mapper.UserMessageMapper;
 import com.neusoft.util.MD5Utils;
 import com.neusoft.domain.User;
@@ -39,11 +40,15 @@ public class UserController {
     TopicMapper topicMapper;
     @Autowired
     UserMessageMapper userMessageMapper;
+    @Autowired
+    UserCollectTopicMapper userCollectTopicMapper;
 
     @RequestMapping("index")
     public String index()
     {
+
         return "user/index";
+
     }
     @RequestMapping("message")
     public ModelAndView message(HttpSession httpSession)
@@ -74,12 +79,18 @@ public class UserController {
                 regRespObj.setAction(request.getServletContext().getContextPath() + "/user/login");
             }
         ModelAndView modelAndView = new ModelAndView();
+
         int count = userMapper.selectByTopicUserIdcount(uid);
+        int countCollect =  userCollectTopicMapper.getUserIdCollectCount(uid);
+        System.out.println("countCollect+++"+countCollect);
         List<Map<String,Object>> mapList1 = userMapper.selectByTopicUserId(uid);
+        List<Map<String,Object>> mapList2 = userCollectTopicMapper.getUserIDCollectTopic(uid);
         System.out.println(count);
         modelAndView.addObject("uid",uid);
         modelAndView.addObject("userTopicCount",count);
+        modelAndView.addObject("countCollect",countCollect);
         modelAndView.addObject("userTopic",mapList1);
+        modelAndView.addObject("userCollectTopic",mapList2);
         modelAndView.setViewName("user/index");
         return modelAndView;
     }

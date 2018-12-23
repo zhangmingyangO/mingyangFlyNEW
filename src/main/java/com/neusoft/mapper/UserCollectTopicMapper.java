@@ -2,6 +2,7 @@ package com.neusoft.mapper;
 
 import com.neusoft.domain.UserCollectTopic;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserCollectTopicMapper {
@@ -18,4 +19,7 @@ public interface UserCollectTopicMapper {
     int updateByPrimaryKey(UserCollectTopic record);
     int getIsCollectInfo(Map<String,Integer> map);
     int delCollectInfo(Map<String,Integer> map);
+    int getUserIdCollectCount(Integer id);
+    List<Map<String,Object>> getUserIDCollectTopic(Integer id);
+
 }

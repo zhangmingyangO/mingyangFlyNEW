@@ -75,5 +75,13 @@
   <select id="getIsCollectInfo" parameterType="map" resultType="int">
       select count(*) from tab_user_collect_topic where topic_id = #{topicid} and user_id = #{userid}
   </select>
-
+  <select id="getUserIdCollectCount" resultType="int" parameterType="int">
+ SELECT COUNT(*) FROM tab_user_collect_topic
+WHERE tab_user_collect_topic.user_id = #{value}
+  </select>
+<select id="getUserIDCollectTopic" parameterType="int" resultType="map">
+  SELECT tab_user_collect_topic.user_id,tab_user_collect_topic.topic_id,tab_topic.title FROM tab_user_collect_topic JOIN tab_topic ON tab_user_collect_topic.topic_id = tab_topic.id
+WHERE tab_user_collect_topic.user_id = #{value}
+ORDER BY tab_user_collect_topic.id DESC
+</select>
 </mapper>
