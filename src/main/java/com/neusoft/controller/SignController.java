@@ -43,7 +43,6 @@ import java.util.Date;
                 regRespObj.setMsg("请先登录");
             } else {
 
-
                 UserQiandao userQiandao = qiandaoMapper.selectByUserID(user.getId());
                 if (userQiandao != null) {
                     Calendar calendarNow = Calendar.getInstance();
